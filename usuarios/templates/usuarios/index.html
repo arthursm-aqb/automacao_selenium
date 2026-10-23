@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Usuários - Versão 2.0 (Build 2001)</title>
+    <link rel="stylesheet" href="{% static 'usuarios/css/retro.css' %}">
+</head>
+<body>
+    {% csrf_token %}
+
+    <div class="desktop-container">
+        <!-- Janela Principal Windows 2000 -->
+        <div class="window">
+            <div class="window-inner">
+                
+                <!-- Barra de Título -->
+                <div class="title-bar">
+                    <div class="title-bar-text">
+                        <span style="font-size: 14px;">💾</span>
+                        <span>Sistema Integrado de Gestão de Usuários v2.0 - [Modo SPA Ativo]</span>
+                    </div>
+                    <div class="title-bar-controls">
+                        <button class="win-btn" title="Minimizar">_</button>
+                        <button class="win-btn" title="Maximizar">□</button>
+                        <button class="win-btn" title="Fechar" onclick="alert('Deseja realmente sair do Windows?');">✕</button>
+                    </div>
+                </div>
+
+                <!-- Barra de Menus Clássica -->
+                <div class="menu-bar">
+                    <div class="menu-item" onclick="document.getElementById('cad-nome').focus();"><u>A</u>rquivo</div>
+                    <div class="menu-item" onclick="document.getElementById('input-busca').focus();"><u>E</u>ditar</div>
+                    <div class="menu-item" id="menu-atualizar" onclick="document.getElementById('btn-atualizar').click();"><u>E</u>xibir</div>
+                    <div class="menu-item" onclick="document.getElementById('btn-amostras').click();"><u>F</u>erramentas</div>
+                    <div class="menu-item" onclick="alert('Sistema de Cadastro de Usuários - Desenvolvido em Django com JavaScript SPA\nDesign estilo Anos 2000.\nTodos os direitos reservados (c) 2001-2002.');">A<u>j</u>uda</div>
+                </div>
+
+                <!-- Barra de Ferramentas (Toolbar com botões 3D) -->
+                <div class="toolbar">
+                    <button class="btn-tool" id="btn-atualizar" title="Recarregar dados do servidor">
+                        <span>🔄</span> <strong>Atualizar</strong>
+                    </button>
+                    <button class="btn-tool" id="btn-amostras" title="Inserir usuários clássicos de exemplo">
+                        <span>⚡</span> <strong>Popular Amostra</strong>
+                    </button>
+                    <div class="tool-sep"></div>
+                    <button class="btn-tool" id="btn-som-toggle" title="Ativar ou desativar efeitos sonoros retrô">
+                        🔊 Som: ON
+                    </button>
+                    <div class="tool-sep"></div>
+                    <span style="font-size: 10px; color: #555; margin-left: 5px;">
+                        Modo de Operação: <strong>SPA (Sem Recarregamento de Página)</strong>
+                    </span>
+                </div>
+
+                <!-- Letreiro Digital / Marquee dos Anos 2000 -->
+                <div class="retro-marquee-container">
+                    <marquee behavior="scroll" direction="left" scrollamount="4">
+                        ★★★ BEM-VINDO AO PORTAL DE CADASTRO DE USUÁRIOS ★★★ MELHOR VISUALIZADO EM RESOLUÇÃO 800x600 ★★★ SUPORTA INTERNET EXPLORER 5.5 E NETSCAPE NAVIGATOR ★★★ SISTEMA 100% SPA COM JAVASCRIPT E DJANGO ★★★
+                    </marquee>
+                </div>
+
+                <!-- Corpo da Aplicação -->
+                <div class="window-body">
+                    <div class="layout-grid">
+                        
+                        <!-- Coluna da Esquerda: Formulário de Cadastro (CREATE) -->
+                        <div>
+                            <fieldset class="retro-box">
+                                <legend>📝 Novo Cadastro de Usuário</legend>
+                                <form id="form-cadastro" autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="cad-nome">Nome Completo: <span class="req">*</span></label>
+                                        <input type="text" id="cad-nome" class="retro-input" placeholder="Ex: Neo / Thomas Anderson" required maxlength="150">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cad-cpf">CPF: <span class="req">*</span></label>
+                                        <input type="text" id="cad-cpf" class="retro-input" placeholder="000.000.000-00" required maxlength="20">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cad-tipo">Tipo: <span class="req">*</span></label>
+                                        <input type="text" id="cad-tipo" list="lista-tipos" class="retro-input" placeholder="Selecione ou digite..." required maxlength="50">
+                                        <datalist id="lista-tipos">
+                                            <option value="Administrador">
+                                            <option value="Operador">
+                                            <option value="Gerente">
+                                            <option value="Auditor">
+                                            <option value="Convidado">
+                                            <option value="Usuário Padrão">
+                                        </datalist>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cad-situacao">Situação: <span class="req">*</span></label>
+                                        <input type="text" id="cad-situacao" list="lista-situacoes" class="retro-input" placeholder="Selecione ou digite..." required maxlength="50">
+                                        <datalist id="lista-situacoes">
+                                            <option value="Ativo">
+                                            <option value="Inativo">
+                                            <option value="Pendente">
+                                            <option value="Bloqueado">
+                                        </datalist>
+                                    </div>
+
+                                    <div class="btn-row">
+                                        <button type="submit" class="retro-btn btn-primary" id="btn-gravar">
+                                            💾 Gravar Usuário
+                                        </button>
+                                        <button type="button" class="retro-btn" id="btn-limpar">
+                                            🗑️ Limpar
+                                        </button>
+                                    </div>
+                                </form>
+                            </fieldset>
+
+                            <!-- Informações do Sistema Retrô -->
+                            <fieldset class="retro-box" style="margin-top: 10px; font-size: 10px; line-height: 1.4;">
+                                <legend>ℹ️ Informações da Sessão</legend>
+                                <p><strong>Servidor:</strong> Django HTTP/1.1</p>
+                                <p><strong>Banco:</strong> SQLite 3.x (Driver ODBC)</p>
+                                <p><strong>Campos Cadastrais:</strong> Todos strings (Nome, CPF, Tipo, Situação)</p>
+                                <p><strong>Protocolo:</strong> Assíncrono JSON REST</p>
+                            </fieldset>
+                        </div>
+
+                        <!-- Coluna da Direita: Busca e Tabela de Registros (READ, UPDATE, DELETE) -->
+                        <div>
+                            <!-- Barra de Filtro / Localização -->
+                            <form id="form-busca" class="search-bar">
+                                <span style="font-weight: bold;">🔍 Localizar:</span>
+                                <input type="text" id="input-busca" class="retro-input" placeholder="Buscar por Nome, CPF, Tipo ou Situação...">
+                                <button type="submit" class="retro-btn">Buscar</button>
+                                <button type="button" id="btn-limpar-busca" class="retro-btn">Limpar</button>
+                            </form>
+
+                            <!-- Barra de Estatísticas -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-size: 11px;">
+                                <span><strong>Registros na Tabela:</strong> <span id="total-usuarios-badge" style="background:#000080; color:#fff; padding: 1px 6px; font-weight: bold;">0</span></span>
+                                <span style="color: #555;">Dica: Clique no cabeçalho ou selecione uma linha para visualizar.</span>
+                            </div>
+
+                            <!-- Viewport da Tabela Retrô -->
+                            <div class="table-viewport">
+                                <div id="loading-indicator" class="loading-overlay">
+                                    ⏳ Carregando dados da base de dados... Por favor, aguarde...
+                                </div>
+                                <table class="retro-table" id="tabela-usuarios">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 45px; text-align: center;">ID</th>
+                                            <th>Nome do Usuário</th>
+                                            <th style="width: 120px;">CPF</th>
+                                            <th style="width: 110px;">Tipo</th>
+                                            <th style="width: 90px;">Situação</th>
+                                            <th style="width: 140px; text-align: center;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-usuarios-corpo">
+                                        <!-- Preenchido via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Barra de Status do Windows 2000 -->
+                <div class="status-bar">
+                    <div class="status-pane flex-1">
+                        <span>💬</span>
+                        <span id="status-bar-texto">Iniciando sistema de cadastro...</span>
+                    </div>
+                    <div class="status-pane" style="width: 120px;">
+                        <span>🌐 Conectado</span>
+                    </div>
+                    <div class="status-pane" style="width: 70px; text-align: center;">
+                        <span id="relogio-status">--:--:--</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Rodapé Estilo Anos 2000 (Geocities / Badges 88x31) -->
+        <div class="retro-footer-zone">
+            <!-- Faixa em construção -->
+            <div class="under-construction" title="Em Obras / Construção"></div>
+
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <!-- Contador de Visitas -->
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #fff; font-weight: bold; text-shadow: 1px 1px 0 #000;">VOCÊ É O VISITANTE Nº:</span>
+                    <div class="hit-counter" id="visitor-counter">
+                        <span class="hit-digit">0</span>
+                        <span class="hit-digit">0</span>
+                        <span class="hit-digit">4</span>
+                        <span class="hit-digit">2</span>
+                        <span class="hit-digit">8</span>
+                        <span class="hit-digit">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões / Selos 88x31 -->
+            <div class="badges-container">
+                <div class="web-badge badge-notepad">
+                    <span class="badge-left">MADE WITH</span>
+                    <span class="badge-right">NOTEPAD</span>
+                </div>
+                <div class="web-badge badge-django">
+                    <span class="badge-left">POWERED BY</span>
+                    <span class="badge-right">DJANGO</span>
+                </div>
+                <div class="web-badge badge-ie">
+                    <span class="badge-left">MICROSOFT</span>
+                    <span class="badge-right">IE 5.5</span>
+                </div>
+                <div class="web-badge">
+                    <span class="badge-left" style="background:#ff6600;">NETSCAPE</span>
+                    <span class="badge-right" style="background:#333; color:#fff;">NOW 4.7</span>
+                </div>
+                <div class="web-badge badge-valid">
+                    <span class="badge-left">W3C</span>
+                    <span class="badge-right">HTML 4.01</span>
+                </div>
+            </div>
+
+            <p style="color: #d0f0f0; font-size: 10px; text-shadow: 1px 1px 1px #000; text-align: center;">
+                Copyright &copy; 2001-2002 Corporação Alfa Softwares S/A. Todos os direitos reservados.<br>
+                Otimizado para Netscape Navigator 4.7 e Microsoft Internet Explorer 5.0 ou superior em 800x600 pixels.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal de Edição (Windows 2000 Dialog) -->
+    <div id="modal-edicao" class="modal-overlay hidden">
+        <div class="modal-window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <span>✏️</span>
+                    <span>Propriedades do Usuário</span>
+                </div>
+                <div class="title-bar-controls">
+                    <button class="win-btn" id="btn-fechar-modal-edicao">✕</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="form-edicao" autocomplete="off">
+                    <input type="hidden" id="edit-id">
+
+                    <div class="form-group">
+                        <label for="edit-nome">Nome do Usuário: <span class="req">*</span></label>
+                        <input type="text" id="edit-nome" class="retro-input" required maxlength="150">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-cpf">CPF: <span class="req">*</span></label>
+                        <input type="text" id="edit-cpf" class="retro-input" required maxlength="20">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-tipo">Tipo: <span class="req">*</span></label>
+                        <input type="text" id="edit-tipo" list="lista-tipos" class="retro-input" required maxlength="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-situacao">Situação: <span class="req">*</span></label>
+                        <input type="text" id="edit-situacao" list="lista-situacoes" class="retro-input" required maxlength="50">
+                    </div>
+
+                    <div class="btn-row" style="justify-content: flex-end; margin-top: 15px;">
+                        <button type="submit" class="retro-btn btn-primary" id="btn-salvar-edicao">
+                            💾 Salvar Alterações
+                        </button>
+                        <button type="button" class="retro-btn" id="btn-cancelar-edicao">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão (Windows 2000 Message Box) -->
+    <div id="modal-exclusao" class="modal-overlay hidden">
+        <div class="modal-window" style="width: 380px;">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <span>⚠️</span>
+                    <span>Confirmar Exclusão de Arquivo</span>
+                </div>
+                <div class="title-bar-controls">
+                    <button class="win-btn" id="btn-fechar-modal-exclusao">✕</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 15px;">
+                    <span style="font-size: 32px; line-height: 1;">❓</span>
+                    <p id="exclusao-texto" style="font-size: 11px; line-height: 1.4;">
+                        Tem certeza que deseja excluir permanentemente este registro da base de dados?
+                    </p>
+                </div>
+                <div class="btn-row" style="justify-content: flex-end;">
+                    <button type="button" class="retro-btn btn-primary" id="btn-confirmar-exclusao">
+                        Sim (Excluir)
+                    </button>
+                    <button type="button" class="retro-btn" id="btn-cancelar-exclusao">
+                        Não
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast / Notificação Retrô -->
+    <div id="retro-toast" class="retro-toast">
+        <span style="font-size: 16px;">💡</span>
+        <span id="retro-toast-msg">Mensagem do sistema</span>
+    </div>
+
+    <script src="{% static 'usuarios/js/app.js' %}"></script>
+</body>
+</html>
