@@ -1,4 +1,4 @@
-# 🤖 Automação de Cadastro de Usuários com Selenium
+# Automação de Cadastro de Usuários com Selenium
 
 Este projeto realiza o **cadastro automatizado em lote de usuários** em uma aplicação web SPA utilizando **Python**, **Selenium WebDriver** e **Pandas**. 
 
@@ -38,7 +38,7 @@ pip install selenium pandas openpyxl django
 
 ---
 
-## 🚀 Como Executar
+##  Como Executar
 
 ### 1. Inicie a aplicação web (alvo da automação)
 Em um terminal, inicie o servidor local do Django:
@@ -57,7 +57,7 @@ O Chrome abrirá automaticamente em tela cheia e cadastrará todos os usuários 
 
 ---
 
-## 🎯 Mapeamento dos Elementos Web (Selenium)
+## Mapeamento dos Elementos Web (Selenium)
 
 | Campo | Seletor | Identificador | Ação do Robô |
 | :--- | :--- | :--- | :--- |
